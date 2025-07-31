@@ -26,7 +26,7 @@ class FollowViewSet(viewsets.ModelViewSet):
         if Follow.objects.filter(
                 user=self.request.user,
                 following=following_user
-            ).exists():
+        ).exists():
             raise serializers.ValidationError(
                 {'following': 'Вы уже подписаны на этого пользователя'},
             )
@@ -58,7 +58,7 @@ class PostViewSet(viewsets.ModelViewSet):
 
 class CommentViewSet(viewsets.ModelViewSet):
     serializer_class = CommentSerializer
-    permission_classes =[permissions.IsAuthenticatedOrReadOnly,]
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly,]
 
     def get_queryset(self):
         post_id = self.kwargs.get('post_id')

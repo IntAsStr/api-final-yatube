@@ -45,10 +45,14 @@ class Comment(models.Model):
 
 class Follow(models.Model):
     user = models.ForeignKey(
-        User, verbose_name='Юзер', on_delete=models.CASCADE, related_name='followers'
+        User, verbose_name='Юзер',
+        on_delete=models.CASCADE,
+        related_name='followers'
     )
     following = models.ForeignKey(
-        User, verbose_name='Подписчики', on_delete=models.CASCADE, related_name='following_users'
+        User, verbose_name='Подписчики',
+        on_delete=models.CASCADE,
+        related_name='following_users'
     )
 
     class Meta:
@@ -64,6 +68,6 @@ class Follow(models.Model):
                 name='prevent_self_follow'
             )
         ]
-    
+
     def __str__(self):
         return f'{self.user} подписан на {self.following}'
