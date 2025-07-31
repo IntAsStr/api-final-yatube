@@ -24,8 +24,8 @@ class FollowViewSet(viewsets.ModelViewSet):
             raise serializers.ValidationError('Нельзя подписаться на себя')
 
         if Follow.objects.filter(
-            user=self.request.user,
-            following=following_user
+                user=self.request.user,
+                following=following_user
             ).exists():
             raise serializers.ValidationError(
                 {'following': 'Вы уже подписаны на этого пользователя'},
@@ -36,7 +36,10 @@ class FollowViewSet(viewsets.ModelViewSet):
 class PostViewSet(viewsets.ModelViewSet):
     queryset = Post.objects.select_related('author').all()
     serializer_class = PostSerializer
-    permission_classes = [IsOwnerOrReadOnly, permissions.IsAuthenticatedOrReadOnly,]
+    permission_classes = [
+        IsOwnerOrReadOnly,
+        permissions.IsAuthenticatedOrReadOnly,
+    ]
     pagination_class = LimitOffsetPagination
 
     def perform_create(self, serializer):
